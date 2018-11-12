@@ -1,0 +1,22 @@
+.container {
+    width:920px;
+    margin: 0 auto;
+    background-color: green;
+    height: 100px;
+}
+
+.articleItem {
+    height: 300px;
+    width: 450px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.articleInfo {
+    float: left;
+}
+
+.articleImage {
+    float: right;
+    margin-right: 5px;
+}
