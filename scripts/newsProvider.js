@@ -1,13 +1,8 @@
 'use strict'
 
-console.log("I was here");
-
-class NewsProvider {
+export class NewsProvider {
     getNewsChannel() {
-        return fetch('https://newsapi.org/v2/sources?apiKey=9412f748f1da48ea91dc092f9e37a498&category=sports', {
-            // method: "GET",
-            // body: JSON.stringify({category: 'sports'})
-        })
+        return fetch('https://newsapi.org/v2/sources?apiKey=9412f748f1da48ea91dc092f9e37a498&category=sports')
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(data => data.sources);

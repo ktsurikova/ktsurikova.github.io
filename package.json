@@ -1,0 +1,26 @@
+{
+  "name": "task1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktsurikova/ktsurikova.github.io.git"
+  },
+  "author": "Katsiaryna Tsurykava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ktsurikova/ktsurikova.github.io/issues"
+  },
+  "homepage": "https://github.com/ktsurikova/ktsurikova.github.io#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
