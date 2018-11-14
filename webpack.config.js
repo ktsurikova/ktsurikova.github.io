@@ -10,7 +10,7 @@ module.exports = {
   entry: './scripts/app',
 
   output: {
-    filename: '../scripts/bundle.js'
+    filename: './bundle.js'
   },
 
   mode: 'development',

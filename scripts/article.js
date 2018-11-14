@@ -1,7 +1,6 @@
 'use strict'
 
 export class Article {
-
     constructor(data) {
         this.source = data.source;
         this.author = data.author;

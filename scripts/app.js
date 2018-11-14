@@ -5,8 +5,19 @@ let newsProvider = new NewsProvider();
 let domready = false;
 let channelsLoaded = false;
 let channels;
+let selectedChannel;
+let numberOfRecords = 4;
 
-let loadChannels = function () {
+document.addEventListener("DOMContentLoaded", () => {
+    domready = true;
+    if (channelsLoaded) {
+        initialize(channels);
+    }
+});
+
+loadChannels();
+
+function loadChannels() {
     newsProvider.getNewsChannel()
     .then(data => {
         if (domready) {
@@ -19,39 +30,24 @@ let loadChannels = function () {
 }
 
 function initialize(data) {
-    AddSelectChannelsToMarkUp(data);
-    ShowNumberOfRecordsInput();
+    initChannelInput(data);
+    initNumberOfRecordsInput();
     newsProvider.getRecords(selectedChannel, 1, numberOfRecords)
-        .then(res => AddArticles(res.articles))
+        .then(res => addArticles(res.articles))
 }
 
-loadChannels();
-
-document.addEventListener("DOMContentLoaded", () => {
-    domready = true;
-    if (channelsLoaded) {
-        initialize(channels);
-    }
-});
-
-function ShowNumberOfRecordsInput() {
+function initNumberOfRecordsInput() {
     let numberOfRecordsInput = document.getElementById("numberOfRecordsInput");
     numberOfRecordsInput.disabled = false;
-
-    numberOfRecordsInput.onchange = function (e) {
+    numberOfRecordsInput.onchange = (e) => {
         let newNumber = e.target.value;
         if (newNumber === numberOfRecords) return;
         numberOfRecordsChanged(newNumber);
     }
 }
 
-let selectedChannel;
-let numberOfRecords = 4;
-
-function AddSelectChannelsToMarkUp(channels) {
-
+function initChannelInput(channels) {
     let select = document.getElementById("channelInput");
-
     for (let i = 0; i < channels.length; i++) {
         let channel = channels[i];
         let option = document.createElement("option");
@@ -61,23 +57,21 @@ function AddSelectChannelsToMarkUp(channels) {
     }
 
     selectedChannel = channels[0].id;
-
     let channelBlock = document.getElementById("channel");
-
-    channelBlock.onchange = function (e) {
+    channelBlock.onchange = (e) => {
         let selected = e.target.value;
         if (selected === selectedChannel) return;
-        ChannelChanged(selected);
+        channelChanged(selected);
     }
 
     select.disabled = false;
 }
 
-function ChannelChanged(selected) {
+function channelChanged(selected) {
     selectedChannel = selected;
     if (numberOfRecords <= 0) return;
     newsProvider.getRecords(selected, 1, numberOfRecords)
-        .then(res => AddArticles(res.articles))
+        .then(res => addArticles(res.articles))
 }
 
 function numberOfRecordsChanged(newNumber) {
@@ -88,16 +82,15 @@ function numberOfRecordsChanged(newNumber) {
         return;
     }
     newsProvider.getRecords(selectedChannel, 1, numberOfRecords)
-        .then(res => AddArticles(res.articles))
+        .then(res => addArticles(res.articles))
 }
 
-function AddArticles(articles) {
+function addArticles(articles) {
     let articlesBlock = document.getElementById("articles");
     removeChildren(articlesBlock);
-
-    for (let i = 0; i < articles.length; i++) {
-        let article = new Article(articles[i]);
-        articlesBlock.appendChild(article.getMarkUp());
+    for (let article of articles) {
+      let element = new Article(article);
+      articlesBlock.appendChild(element.getMarkUp());
     }
 }
 
@@ -106,8 +99,3 @@ function removeChildren(parent) {
         parent.firstChild.remove();
     }
 }
-
-// //remove childs
-// while (channelBlock.firstChild) {
-//     channelBlock.firstChild.remove();
-// }
