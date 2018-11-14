@@ -1,33 +1,13 @@
 import {NewsProvider} from './newsProvider'
 import {Article} from './article'
 
-let newsProvider = new NewsProvider();
-let domready = false;
-let channelsLoaded = false;
-let channels;
+const newsProvider = new NewsProvider();
 let selectedChannel;
 let numberOfRecords = 4;
 
 document.addEventListener("DOMContentLoaded", () => {
-    domready = true;
-    if (channelsLoaded) {
-        initialize(channels);
-    }
+    newsProvider.getNewsChannel().then(data => initialize(data));
 });
-
-loadChannels();
-
-function loadChannels() {
-    newsProvider.getNewsChannel()
-    .then(data => {
-        if (domready) {
-            initialize(data);
-        } else {
-            channelsLoaded = true;
-            channels = data;
-        }
-    });
-}
 
 function initialize(data) {
     initChannelInput(data);
@@ -37,29 +17,29 @@ function initialize(data) {
 }
 
 function initNumberOfRecordsInput() {
-    let numberOfRecordsInput = document.getElementById("numberOfRecordsInput");
+    const numberOfRecordsInput = document.getElementById("numberOfRecordsInput");
     numberOfRecordsInput.disabled = false;
     numberOfRecordsInput.onchange = (e) => {
-        let newNumber = e.target.value;
+        const newNumber = e.target.value;
         if (newNumber === numberOfRecords) return;
         numberOfRecordsChanged(newNumber);
     }
 }
 
 function initChannelInput(channels) {
-    let select = document.getElementById("channelInput");
+    const select = document.getElementById("channelInput");
     for (let i = 0; i < channels.length; i++) {
-        let channel = channels[i];
-        let option = document.createElement("option");
+        const channel = channels[i];
+        const option = document.createElement("option");
         option.value = channel.id;
         option.text = channel.name;
         select.add(option, i);
     }
 
     selectedChannel = channels[0].id;
-    let channelBlock = document.getElementById("channel");
+    const channelBlock = document.getElementById("channel");
     channelBlock.onchange = (e) => {
-        let selected = e.target.value;
+        const selected = e.target.value;
         if (selected === selectedChannel) return;
         channelChanged(selected);
     }
@@ -86,10 +66,10 @@ function numberOfRecordsChanged(newNumber) {
 }
 
 function addArticles(articles) {
-    let articlesBlock = document.getElementById("articles");
+    const articlesBlock = document.getElementById("articles");
     removeChildren(articlesBlock);
     for (let article of articles) {
-      let element = new Article(article);
+      const element = new Article(article);
       articlesBlock.appendChild(element.getMarkUp());
     }
 }

@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "prepare-app": "npm i -g webpack && npm i -g webpack-cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

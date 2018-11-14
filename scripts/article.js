@@ -1,23 +1,23 @@
 'use strict'
 
 export class Article {
-    constructor(data) {
-        this.source = data.source;
-        this.author = data.author;
-        this.title = data.title;
-        this.description = data.description;
-        this.url = data.url;
-        this.urlToImage = data.urlToImage;
-        this.publishedAt = data.publishedAt
-        this.content = data.content;
+    constructor(options) {
+        this.source = options.source;
+        this.author = options.author;
+        this.title = options.title;
+        this.description = options.description;
+        this.url = options.url;
+        this.urlToImage = options.urlToImage;
+        this.publishedAt = options.publishedAt
+        this.content = options.content;
     };
 
     getMarkUp() {
-        let articleBlock = document.createElement("div");
+        const articleBlock = document.createElement("div");
         articleBlock.classList += "articleItem";
 
-        let articleInfoBlock = this.getInfoBlock();
-        let articleImage = this.getImageBlock();
+        const articleInfoBlock = this.getInfoBlock();
+        const articleImage = this.getImageBlock();
 
         articleBlock.appendChild(articleInfoBlock);
         articleBlock.appendChild(articleImage);
@@ -26,25 +26,25 @@ export class Article {
     };
 
     getInfoBlock() {
-        let articleInfoBlock = document.createElement("div");
+        const articleInfoBlock = document.createElement("div");
         articleInfoBlock.classList += "articleInfo";
 
-        let articleTitle = document.createElement("p");
-        articleTitle.innerText = this.title;
+        const articconstitle = document.createElement("p");
+        articconstitle.innerText = this.title;
 
-        let articleAuthor = document.createElement("p");
+        const articleAuthor = document.createElement("p");
         articleAuthor.innerText = this.author;
 
-        let articlePublishedDate = this.getPublishedDate();
+        const articlePublishedDate = this.getPublishedDate();
 
-        let articleDesc = document.createElement("p");
+        const articleDesc = document.createElement("p");
         articleDesc.innerText = this.description;
 
-        let articleReadMore = document.createElement("a");
+        const articleReadMore = document.createElement("a");
         articleReadMore.href = this.url;
         articleReadMore.text = "Read More";
 
-        articleInfoBlock.appendChild(articleTitle);
+        articleInfoBlock.appendChild(articconstitle);
         articleInfoBlock.appendChild(articleAuthor);
         articleInfoBlock.appendChild(articlePublishedDate);
         articleInfoBlock.appendChild(articleDesc);
@@ -54,14 +54,14 @@ export class Article {
     };
 
     getPublishedDate() {
-        let articlePublishedDate = document.createElement("p");
-        let date = new Date(this.publishedAt);
+        const articlePublishedDate = document.createElement("p");
+        const date = new Date(this.publishedAt);
         articlePublishedDate.innerText = date.toDateString();
         return articlePublishedDate;
     };
 
     getImageBlock() {
-        let articleImage = document.createElement("img");
+        const articleImage = document.createElement("img");
         articleImage.src = this.urlToImage;
         articleImage.height = "300";
         articleImage.width = "200";
