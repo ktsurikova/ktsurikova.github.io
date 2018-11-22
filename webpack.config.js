@@ -7,7 +7,8 @@
 //   webpack
 
 module.exports = {
-  entry: './scripts/app',
+
+  entry: ['whatwg-fetch', "@babel/polyfill", './scripts/app'],
 
   output: {
     filename: './bundle.js'
@@ -23,7 +24,7 @@ module.exports = {
           use: {
             loader: 'babel-loader',
             options: {
-              //presets: ['@babel/preset-env']
+              presets: [['env', {}]]
             }
           }
         }

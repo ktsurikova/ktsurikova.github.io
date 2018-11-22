@@ -14,7 +14,7 @@ export class Article {
 
     getMarkUp() {
         const articleBlock = document.createElement("div");
-        articleBlock.classList += "articleItem";
+        articleBlock.className += " articleItem";
 
         const articleInfoBlock = this.getInfoBlock();
         const articleImage = this.getImageBlock();
@@ -27,7 +27,7 @@ export class Article {
 
     getInfoBlock() {
         const articleInfoBlock = document.createElement("div");
-        articleInfoBlock.classList += "articleInfo";
+        articleInfoBlock.className += " articleInfo";
 
         const articconstitle = document.createElement("p");
         articconstitle.innerText = this.title;
@@ -65,7 +65,7 @@ export class Article {
         articleImage.src = this.urlToImage;
         articleImage.height = "300";
         articleImage.width = "200";
-        articleImage.classList += "articleImage";
+        articleImage.className += " articleImage";
         return articleImage;
     };
 }

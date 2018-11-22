@@ -75,7 +75,5 @@ function addArticles(articles) {
 }
 
 function removeChildren(parent) {
-    while (parent.firstChild) {
-        parent.firstChild.remove();
-    }
+    parent.innerHTML = "";
 }
