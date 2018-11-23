@@ -8,16 +8,22 @@ export class NewsProvider {
     constructor() {
         this.apiKey = "9412f748f1da48ea91dc092f9e37a498";
     }
-    getNewsChannel() {
-        return fetch(`https://newsapi.org/v2/sources?apiKey=${this.apiKey}&category=sports`)
-        .then(res => res.json())
-        .catch(console.error)
-        .then(data => data.sources);
+    async getNewsChannel() {
+        try {
+            let response = await fetch(`https://newsapi.org/v2/sources?apiKey=${this.apiKey}&category=sports`);
+            let newsChannel = await response.json();
+            return newsChannel.sources;
+        } catch (error) {
+            console.error(error);
+        }
     };
-    getRecords(channelId, pageNumber, pageSize) {
-        return fetch(`https://newsapi.org/v2/top-headlines?sources=${channelId}
-            &pageSize=${pageSize}&page=${pageNumber}&apiKey=${this.apiKey}`)
-        .then(res => res.json())
-        .catch(console.error)
+    async getRecords(channelId, pageNumber, pageSize) {
+        try {
+            let response = await fetch(`https://newsapi.org/v2/top-headlines?sources=${channelId}
+                &pageSize=${pageSize}&page=${pageNumber}&apiKey=${this.apiKey}`);
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+        }
     }
 };

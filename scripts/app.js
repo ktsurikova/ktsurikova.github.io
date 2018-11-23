@@ -5,15 +5,16 @@ const newsProvider = new NewsProvider();
 let selectedChannel;
 let numberOfRecords = 4;
 
-document.addEventListener("DOMContentLoaded", () => {
-    newsProvider.getNewsChannel().then(data => initialize(data));
+document.addEventListener("DOMContentLoaded", async () => {
+    let data = await newsProvider.getNewsChannel();
+    initialize(data);
 });
 
-function initialize(data) {
+async function initialize(data) {
     initChannelInput(data);
     initNumberOfRecordsInput();
-    newsProvider.getRecords(selectedChannel, 1, numberOfRecords)
-        .then(res => addArticles(res.articles))
+    let res = await newsProvider.getRecords(selectedChannel, 1, numberOfRecords);
+    addArticles(res.articles);
 }
 
 function initNumberOfRecordsInput() {
@@ -47,22 +48,22 @@ function initChannelInput(channels) {
     select.disabled = false;
 }
 
-function channelChanged(selected) {
+async function channelChanged(selected) {
     selectedChannel = selected;
     if (numberOfRecords <= 0) return;
-    newsProvider.getRecords(selected, 1, numberOfRecords)
-        .then(res => addArticles(res.articles))
+    let res = await newsProvider.getRecords(selected, 1, numberOfRecords);
+    addArticles(res.articles);
 }
 
-function numberOfRecordsChanged(newNumber) {
+async function numberOfRecordsChanged(newNumber) {
     numberOfRecords = newNumber;
     if (!selectedChannel) return;
     if (numberOfRecords < 0 ) {
         removeChildren(document.getElementById("articles"));
         return;
     }
-    newsProvider.getRecords(selectedChannel, 1, numberOfRecords)
-        .then(res => addArticles(res.articles))
+    var res = await newsProvider.getRecords(selectedChannel, 1, numberOfRecords);
+    addArticles(res.articles);
 }
 
 function addArticles(articles) {
