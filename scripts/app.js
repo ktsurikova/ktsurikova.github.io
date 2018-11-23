@@ -19,7 +19,7 @@ function initialize(data) {
 function initNumberOfRecordsInput() {
     const numberOfRecordsInput = document.getElementById("numberOfRecordsInput");
     numberOfRecordsInput.disabled = false;
-    numberOfRecordsInput.onchange = (e) => {
+    numberOfRecordsInput.oninput = (e) => {
         const newNumber = e.target.value;
         if (newNumber === numberOfRecords) return;
         numberOfRecordsChanged(newNumber);
