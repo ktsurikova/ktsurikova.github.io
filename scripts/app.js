@@ -1,14 +1,15 @@
-import {NewsProvider} from './newsProvider'
-import {Article} from './article'
+import {NewsProvider} from './newsProvider';
+import {Article} from './article';
+import './../styles.css';
 
 const newsProvider = new NewsProvider();
 let selectedChannel;
 let numberOfRecords = 4;
 
-document.addEventListener("DOMContentLoaded", async () => {
+export default async function appLoader() {
     let data = await newsProvider.getNewsChannel();
     initialize(data);
-});
+};
 
 async function initialize(data) {
     initChannelInput(data);
