@@ -1,6 +1,5 @@
-import 'whatwg-fetch'
-import { polyfill } from 'es6-promise';
-polyfill();
+import { getRequestObject } from './requestProxy';
+import { handleError } from './handlerLoader'
 
 'use strict'
 
@@ -10,20 +9,21 @@ export class NewsProvider {
     }
     async getNewsChannel() {
         try {
-            let response = await fetch(`https://newsapi.org/v2/sources?apiKey=${this.apiKey}&category=sports`);
-            let newsChannel = await response.json();
-            return newsChannel.sources;
+            let url = `https://newsapi.org/v2/sources?apiKey=${this.apiKey}&category=sports`;
+            let requestObject = getRequestObject();
+            let response = await requestObject.makeRequest(url);
+            return response.sources;
         } catch (error) {
-            console.error(error);
+            handleError(error);
         }
     };
     async getRecords(channelId, pageNumber, pageSize) {
         try {
-            let response = await fetch(`https://newsapi.org/v2/top-headlines?sources=${channelId}
-                &pageSize=${pageSize}&page=${pageNumber}&apiKey=${this.apiKey}`);
-            return await response.json();
+            let url = `https://newsapi.org/v2/top-headlines?sources=${channelId}&pageSize=${pageSize}&page=${pageNumber}&apiKey=${this.apiKey}`;
+            let requestObject = getRequestObject();
+            return await requestObject.makeRequest(url);
         } catch (error) {
-            console.error(error);
+            handleErrorr(error);
         }
     }
 };
